@@ -1,8 +1,6 @@
-### Tipbot for Discord that works with Stratis
+### Tipbot for EXOS Community Discord 
 
-The bot is added to the [stratis community discord](https://discord.gg/9tDyfZs). You can check it out there.
-
-Or you can [add stratis tipbot](https://discordapp.com/oauth2/authorize?client_id=468025834519658496&scope=bot) to your server.
+This product is based on the project of [noescape00](https://github.com/noescape00/DiscordTipBot). You can check it out there.
 
 Don't forget to add `Manage Messages ` permission for the bot.
 
@@ -10,10 +8,10 @@ Don't forget to add `Manage Messages ` permission for the bot.
 
 #### Guide: how to setup your own instance of the bot
 
-A Stratis node (you can get latest release [here](https://github.com/stratisproject/stratisX/releases)) with RPC turned on needs to be running.
+A EXOS node (you can get latest release [HERE](https://github.com/exoeconomy/EXOS-Qt/releases)) with RPC turned on needs to be running.
 
 ```
-stratis-qt.exe -rpcuser=<username> -rpcpassword=<password> -rpcport=<port> -server=1
+exosd.exe -rpcuser=<username> -rpcpassword=<password> -rpcport=<port> -server=1
 ```
 
 
@@ -40,6 +38,7 @@ rpcUsername - rpc user name
 rpcPassword - rpc password
 walletPassword - wallet's password. Dont specify if wallet is not encrypted
 token - discord bot token
+connectionString - database connection if using diferent host
 ```
 
 
@@ -49,7 +48,7 @@ token - discord bot token
 Before you can begin writing your bot, it is necessary to create a bot
 account on Discord.
 
-1. Visit the Discord Applications Portal.
+1. Visit the Discord Applications Portal. [HERE](https://discordapp.com/developers)
 2. Create a New Application.
 3. Give the application a name (this will be the bot's initial
 username).
