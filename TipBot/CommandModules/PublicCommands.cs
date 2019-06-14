@@ -44,7 +44,7 @@ namespace TipBot.CommandModules
 
         private readonly Logger logger = LogManager.GetCurrentClassLogger();
 
-        [CommandWithHelp("tip", "Transfers specified amount of money to mentioned user.", "tipbot tip <user> <amount> <message>*")]
+        [CommandWithHelp("tip", "Transfers specified amount of tokens to mentioned user.", "tipbot tip <user> <amount> <message>*")]
         public Task TipAsync(IUser userBeingTipped, decimal amount, [Remainder]string message = null)
         {
             this.logger.Trace("({0}:{1},{2}:{3},{4}:'{5}')", nameof(userBeingTipped), userBeingTipped.Id, nameof(amount), amount, nameof(message), message);
@@ -76,7 +76,7 @@ namespace TipBot.CommandModules
             return this.ReplyAsync(response);
         }
 
-        [CommandWithHelp("deposit", "Displays your unique deposit address or assigns you one if it wasn't assigned before.")]
+        [CommandWithHelp("deposit", "Displays your unique deposit address or assigns you one if it wasn't assigned before. **NOTICE: To avoid exposing your address use deposit/withdraw/balance/ commands in Private Messages with the bot**")]
         public Task DepositAsync()
         {
             this.logger.Trace("()");
@@ -159,7 +159,7 @@ namespace TipBot.CommandModules
             return this.ReplyAsync(response);
         }
 
-        [CommandWithHelp("makeItRain", "Randomly selects online users from the current server and tips them 1 coin (or another value if specified by caller)." +
+        [CommandWithHelp("makeItRain", "Randomly selects online users from the current server and tips them 1 EXOS (or another value if specified by caller)." +
                                        " Amount of users that will be tipped is equal to totalAmount / tipAmount.", "tipbot makeItRain <totalAmount> <tipAmount=1>*")]
         public async Task MakeItRainAsync(decimal amount, decimal tipAmount = 1)
         {
@@ -214,8 +214,8 @@ namespace TipBot.CommandModules
             await this.ReplyAsync(response).ConfigureAwait(false);
         }
 
-        [CommandWithHelp("chart", "Displays top 3 tippers and users being tipped over the last 7 days.", "tipbot chart <days=7>*")]
-        public async Task ChartAsync(int days = 7)
+        [CommandWithHelp("chart", "Displays top 10 tippers and users being tipped over the last 30 days.", "tipbot chart <days=30>*")]
+        public async Task ChartAsync(int days = 30)
         {
             this.logger.Trace("({0}:{1})", nameof(days), days);
 
@@ -268,7 +268,7 @@ namespace TipBot.CommandModules
         }
 
         [CommandWithHelp("startQuiz", "You ask a question, supply hash of an answer and for how long the quiz will be running." +
-                                       " First user to provide correct answer gets the prize! In case no one answers money will return back to you after quiz expiry." +
+                                       " First user to provide correct answer gets the prize! In case no one answers tokens will return back to you after quiz expiry." +
                                        " For hash generation use <https://passwordsgenerator.net/sha256-hash-generator/>",
                                         "tipbot startQuiz <amount> <SHA256 of an answer> <duration in minutes> <question>")]
         public async Task StartQuizAsync(decimal amount, string answerSHA256, int durationMinutes, [Remainder]string question)
@@ -418,6 +418,7 @@ namespace TipBot.CommandModules
 
             var builder = new StringBuilder();
 
+            builder.AppendLine("**NOTICE: To avoid exposing your address use deposit/withdraw/balance/ commands in Private Messages with the bot**");
             builder.AppendLine("__List of bot commands:__");
             builder.AppendLine("parameters marked with * are optional");
             builder.AppendLine("");
