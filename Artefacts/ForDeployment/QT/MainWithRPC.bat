@@ -1,1 +1,1 @@
-stratis-qt.exe -rpcuser=<user> -rpcpassword=<pass> -rpcport=23521 -server=1
+exosd -rpcuser=<user> -rpcpassword=<pass> -rpcport=4561 -server=1
