@@ -1,0 +1,41 @@
+version: "3.7"
+
+services:
+  db-tipbot:
+    network_mode: host
+    image: mcr.microsoft.com/mssql/server:2017-latest
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=${SA_PASSWORD}
+      - MSSQL_PID=Express
+    volumes:
+      - /var/opt/mssql:/var/opt/mssql 
+  qt-tipbot:
+    network_mode: host    
+    build: 
+      context: ./wallet-qt
+      args:
+        - walletPackage
+        - walletRepo
+        - walletDaemon
+    volumes:
+      - /var/opt/exos-qt:/root/.exos
+  tipbot-exos:
+    network_mode: host
+    build: 
+      context: ./tipbot
+      args:
+        - discordUrlRepo
+        - discordRepoName
+    environment:
+      - daemonUrl=${daemonUrl}
+      - rpcUsername=${rpcUsername}
+      - rpcPassword=${rpcPassword}
+      - walletPassword=${walletPassword}
+      - token=${token}
+      - connectionString=${connectionString}
+    depends_on: 
+      - db-tipbot
+      - qt-tipbot
+volumes:
+  mssql-tipbot:
