@@ -38,14 +38,16 @@ namespace TipBot.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<decimal>("Balance");
+                    b.Property<decimal>("Balance")
+                        .HasColumnType("decimal(20,6)");
 
                     b.Property<string>("DepositAddress");
 
                     b.Property<decimal>("DiscordUserId")
                         .HasConversion(new ValueConverter<decimal, decimal>(v => default(decimal), v => default(decimal), new ConverterMappingHints(precision: 20, scale: 0)));
 
-                    b.Property<decimal>("LastCheckedReceivedAmountByAddress");
+                    b.Property<decimal>("LastCheckedReceivedAmountByAddress")
+                        .HasColumnType("decimal(20,6)");
 
                     b.Property<string>("Username");
 
@@ -84,7 +86,8 @@ namespace TipBot.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<decimal>("Amount");
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("decimal(20,6)");
 
                     b.Property<DateTime>("CreationTime");
 
