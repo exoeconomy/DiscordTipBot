@@ -159,7 +159,7 @@ namespace TipBot.CommandModules
             return this.ReplyAsync(response);
         }
 
-        [CommandWithHelp("makeItRain", "Randomly selects online users from the current server and tips them 1 EXOS (or another value if specified by caller)." +
+        [CommandWithHelp("makeItRain", "Randomly selects online users from the current server and tips them 1 Token (or another value if specified by caller)." +
                                        " Amount of users that will be tipped is equal to totalAmount / tipAmount.", "tipbot makeItRain <totalAmount> <tipAmount=1>*")]
         public async Task MakeItRainAsync(decimal amount, decimal tipAmount = 1)
         {
