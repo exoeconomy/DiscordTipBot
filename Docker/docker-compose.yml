@@ -9,24 +9,21 @@ services:
       - SA_PASSWORD=${SA_PASSWORD}
       - MSSQL_PID=Express
     volumes:
-      - /var/opt/mssql:/var/opt/mssql 
+      - /var/opt/mssql-${COMPOSE_PROJECT_NAME}:/var/opt/mssql 
   qt-tipbot:
     network_mode: host    
     build: 
       context: ./wallet-qt
       args:
-        - walletPackage
         - walletRepo
         - walletDaemon
     volumes:
-      - /var/opt/exos-qt:/root/.exos
-  tipbot-exos:
+      - ${walletHostDir}:${walletContainerDir}
+  tipbot:
     network_mode: host
     build: 
-      context: ./tipbot
-      args:
-        - discordUrlRepo
-        - discordRepoName
+      context: ..
+      dockerfile: Docker/tipbot/Dockerfile
     environment:
       - daemonUrl=${daemonUrl}
       - rpcUsername=${rpcUsername}
@@ -34,6 +31,10 @@ services:
       - walletPassword=${walletPassword}
       - token=${token}
       - connectionString=${connectionString}
+      - ticker=${ticker}
+      - botprefix=${botprefix}
+      - supportUsername=${supportUsername}
+      - supportDiscriminator=${supportDiscriminator}
     depends_on: 
       - db-tipbot
       - qt-tipbot
