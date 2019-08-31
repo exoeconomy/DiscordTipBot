@@ -1,21 +1,19 @@
 FROM mcr.microsoft.com/dotnet/core/sdk:2.2 AS build-env
 
-ARG discordUrlRepo
-ARG discordRepoName
-
-WORKDIR /app
 RUN apt-get update && apt-get install -y git
+WORKDIR /app
 
-# Discord Tipbot Github Repo
-RUN git clone ${discordUrlRepo}
-WORKDIR /app/${discordRepoName}/TipBot
+COPY ./ .
+WORKDIR /app/TipBot
+
+COPY /Docker/tipbot/Logo.png /app/TipBot/Content/
 
 # restore as distinct layers
 RUN dotnet restore
 
 # build binaries
 RUN dotnet publish -c Release
-WORKDIR /app/${discordRepoName}/TipBot/bin/Release/netcoreapp2.1
+WORKDIR /app/TipBot/bin/Release/netcoreapp2.1
 
 # Build runtime image
 ENTRYPOINT exec dotnet TipBot.dll -daemonUrl="${daemonUrl}" -rpcUsername="${rpcUsername}" -rpcPassword="${rpcPassword}" -walletPassword="${walletPassword}" -token="${token}" -connectionString="${connectionString}"
